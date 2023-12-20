@@ -1,0 +1,30 @@
+version: "3"
+
+services:
+  documents-db:
+    image: postgres:13.3
+    environment:
+      POSTGRES_DB: Documents
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+    ports:
+      - "5463:5432"
+    volumes:
+      - ./db/init/:/docker-entrypoint-initdb.d/
+      - ./db/:/var/lib/postgresql/data
+
+#  documents-service:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    ports:
+#      - "8080:8080"
+#    environment:
+#      server.port: 8080
+#
+#      spring.datasource.url: jdbc:postgresql://documents-db:5463/Documents
+#      spring.datasource.username: postgres
+#      spring.datasource.password: postgres
+#    depends_on:
+#      - documents-db

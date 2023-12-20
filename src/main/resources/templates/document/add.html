@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title>[[#{document.add.headline}]]</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 class="flex-grow-1">[[#{document.add.headline}]]</h1>
+                <div>
+                    <a th:href="@{/documents}" class="btn btn-secondary">[[#{document.add.back}]]</a>
+                </div>
+            </div>
+            <div th:replace="~{fragments/forms::globalErrors('document')}" />
+            <form th:action="${requestUri}" method="post">
+                <div th:replace="~{fragments/forms::inputRow(object='document', field='yearOfWork', type='number')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='document', field='programName')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='document', field='programShortName')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='document', field='programNameEn')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='document', field='description')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='document', field='byDocument')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='document', field='documentType', type='select')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='document', field='user', type='select')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='document', field='teacher', type='select')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='document', field='headTeacher', type='select')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='document', field='department', type='select')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='document', field='classs', type='select')}" />
+                <input type="submit" th:value="#{document.add.headline}" class="btn btn-primary mt-4" />
+            </form>
+        </div>
+    </body>
+</html>

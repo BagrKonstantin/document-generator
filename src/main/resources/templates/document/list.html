@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title>[[#{document.list.headline}]]</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 class="flex-grow-1">[[#{document.list.headline}]]</h1>
+                <div>
+                    <a th:href="@{/documents/add}" class="btn btn-primary ms-2">[[#{document.list.createNew}]]</a>
+                </div>
+            </div>
+            <div th:if="${documents.empty}">[[#{document.list.empty}]]</div>
+            <div th:if="${!documents.empty}" class="table-responsive">
+                <table class="table table-striped table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th scope="col">[[#{document.documentId.label}]]</th>
+                            <th scope="col">[[#{document.yearOfWork.label}]]</th>
+                            <th scope="col">[[#{document.programName.label}]]</th>
+                            <th scope="col">[[#{document.programShortName.label}]]</th>
+                            <th scope="col">[[#{document.programNameEn.label}]]</th>
+                            <th scope="col">[[#{document.description.label}]]</th>
+                            <th scope="col">[[#{document.byDocument.label}]]</th>
+                            <th scope="col">[[#{document.documentType.label}]]</th>
+                            <th><!-- --></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="document : ${documents}">
+                            <td>[[${document.documentId}]]</td>
+                            <td>[[${document.yearOfWork}]]</td>
+                            <td>[[${document.programName}]]</td>
+                            <td>[[${document.programShortName}]]</td>
+                            <td>[[${document.programNameEn}]]</td>
+                            <td>[[${document.description}]]</td>
+                            <td>[[${document.byDocument}]]</td>
+                            <td>[[${document.documentType}]]</td>
+                            <td>
+                                <div class="float-end text-nowrap">
+                                    <a th:href="@{/documents/edit/{documentId}(documentId=${document.documentId})}" class="btn btn-sm btn-secondary">[[#{document.list.edit}]]</a>
+                                    <form th:action="@{/documents/delete/{documentId}(documentId=${document.documentId})}"
+                                            th:hx-confirm="#{delete.confirm}" method="post" class="d-inline">
+                                        <button type="submit" class="btn btn-sm btn-secondary">[[#{document.list.delete}]]</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>
